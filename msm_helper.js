@@ -8,7 +8,7 @@ var MsmHelper = function(execIn, myCacheIn) {
 MsmHelper.prototype.getStatus = function(id, callback) {
   var value = myCache.get(id + '_status');
   if (value === undefined) {
-    exec('sudo msm ' + id + ' status')
+    exec('msm ' + id + ' status')
       .then(function(result) {
         var message = result.stdout.trim();
         value = {status: message.slice(-8, -1), updated_at: new Date()};
@@ -33,7 +33,7 @@ MsmHelper.prototype.getUsers = function(id, callback, status) {
     if (status === 'running') {
       var value = myCache.get(id + '_users');
       if (value === undefined) {
-        exec('sudo msm ' + id + ' connected')
+        exec('msm ' + id + ' connected')
           .then(function(result) {
             var users = result.stdout.trim().split("\n");
             if (users[0] === "No players are connected.") {
