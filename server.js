@@ -8,6 +8,12 @@ var exec = require('child-process-promise').exec;
 var MsmHelper = require('./msm_helper.js');
 var msmHelper = new MsmHelper(exec, myCache);
 
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+};
+
 var router = express.Router();
 
 router.get('/v1/:id', function(req, res) {
@@ -28,7 +34,7 @@ router.get('/v1/:id/users', function(req, res) {
   });
 });
 
-
+app.use(allowCrossDomain);
 app.use('/api', router);
 app.listen(port);
 console.log('Magic happens on port ' + port);

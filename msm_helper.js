@@ -6,7 +6,7 @@ var MsmHelper = function(execIn, myCacheIn) {
 };
 
 MsmHelper.prototype.getStatus = function(id, callback) {
-  var value = myCache.get('status');
+  var value = myCache.get(id + '_status');
   if (value === undefined) {
     exec('sudo msm ' + id + ' status')
       .then(function(result) {
@@ -16,7 +16,7 @@ MsmHelper.prototype.getStatus = function(id, callback) {
         callback(value);
       })
       .fail(function(err) {
-        callback({status: 'failed', updated_at: null});
+        callback({status: 'failed', updated_at: new Date()});
       });
   } else {
     callback(value);
@@ -31,7 +31,7 @@ MsmHelper.prototype.getUsers = function(id, callback, status) {
     });
   } else {
     if (status === 'running') {
-      var value = myCache.get('users');
+      var value = myCache.get(id + '_users');
       if (value === undefined) {
         exec('sudo msm ' + id + ' connected')
           .then(function(result) {
@@ -45,7 +45,7 @@ MsmHelper.prototype.getUsers = function(id, callback, status) {
             callback(value);
           })
           .fail(function(err) {
-            callback({userlist: ['ERROR'], updated_at: null});
+            callback({userlist: ['ERROR'], updated_at: new Date()});
           });
       } else {
         callback(value);
