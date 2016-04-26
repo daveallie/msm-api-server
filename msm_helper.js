@@ -74,16 +74,16 @@ MsmHelper.prototype.start = function(id) {
   exec('msm ' + id + ' start')
 };
 
-MsmHelper.prototype.stop = function(id) {
-  exec('msm ' + id + ' stop')
+MsmHelper.prototype.stop = function(id, stop_now) {
+  exec('msm ' + id + ' stop' + (stop_now ? ' now' : ''))
 };
 
 MsmHelper.prototype.startAll = function() {
   exec('msm start')
 };
 
-MsmHelper.prototype.stopAll = function() {
-  exec('msm stop')
+MsmHelper.prototype.stopAll = function(stop_now) {
+  exec('msm stop' + (stop_now ? ' now' : ''))
 };
 
 MsmHelper.prototype.stop = function(id) {

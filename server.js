@@ -22,7 +22,7 @@ router.post('/v1/start', function(req, res) {
 });
 
 router.post('/v1/stop', function(req, res) {
-  msmHelper.stopAll();
+  msmHelper.stopAll(true);
   res.sendStatus(200);
 });
 
@@ -38,7 +38,7 @@ router.post('/v1/:id/start', function(req, res) {
 });
 
 router.post('/v1/:id/stop', function(req, res) {
-  msmHelper.stop(req.params.id);
+  msmHelper.stop(req.params.id, true);
   res.sendStatus(200);
 });
 
