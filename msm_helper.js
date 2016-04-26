@@ -66,4 +66,50 @@ MsmHelper.prototype.getAllInfo = function(id, callback) {
   });
 };
 
+MsmHelper.prototype.start = function(id) {
+  exec('msm ' + id + ' start')
+};
+
+MsmHelper.prototype.stop = function(id) {
+  exec('msm ' + id + ' stop')
+};
+
+MsmHelper.prototype.startAll = function() {
+  exec('msm start')
+};
+
+MsmHelper.prototype.stopAll = function() {
+  exec('msm stop')
+};
+
+MsmHelper.prototype.stop = function(id) {
+  var msmThis = this;
+  msmThis.getStatus(id, function(result) {
+    var status = result;
+    msmThis.getUsers(id, function(result) {
+      callback({status: status, users: result});
+    }, status.status);
+  });
+};
+
+MsmHelper.prototype.startAll = function() {
+  var msmThis = this;
+  msmThis.getStatus(id, function(result) {
+    var status = result;
+    msmThis.getUsers(id, function(result) {
+      callback({status: status, users: result});
+    }, status.status);
+  });
+};
+
+MsmHelper.prototype.stopAll = function() {
+  var msmThis = this;
+  msmThis.getStatus(id, function(result) {
+    var status = result;
+    msmThis.getUsers(id, function(result) {
+      callback({status: status, users: result});
+    }, status.status);
+  });
+};
+
 module.exports = MsmHelper;

@@ -16,10 +16,30 @@ var allowCrossDomain = function(req, res, next) {
 
 var router = express.Router();
 
+router.post('/v1/start', function(req, res) {
+  msmHelper.startAll();
+  res.sendStatus(200);
+});
+
+router.post('/v1/stop', function(req, res) {
+  msmHelper.stopAll();
+  res.sendStatus(200);
+});
+
 router.get('/v1/:id', function(req, res) {
   msmHelper.getAllInfo(req.params.id, function(result) {
     res.json(result);
   });
+});
+
+router.post('/v1/:id/start', function(req, res) {
+  msmHelper.start(req.params.id);
+  res.sendStatus(200);
+});
+
+router.post('/v1/:id/stop', function(req, res) {
+  msmHelper.stop(req.params.id);
+  res.sendStatus(200);
 });
 
 router.get('/v1/:id/status', function(req, res) {
