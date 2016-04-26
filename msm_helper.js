@@ -1,4 +1,8 @@
-var exec, myCache;
+var exec, myCache, msmBin = '/usr/local/bin/msm';
+
+var msmExec = function(cmd) {
+    return exec(msmBin + ' ' + cmd);
+};
 
 var MsmHelper = function(execIn, myCacheIn) {
   exec = execIn;
@@ -8,7 +12,7 @@ var MsmHelper = function(execIn, myCacheIn) {
 MsmHelper.prototype.getStatus = function(id, callback) {
   var value = myCache.get(id + '_status');
   if (value === undefined) {
-    exec('msm ' + id + ' status')
+    msmExec(id + ' status')
       .then(function(result) {
         var message = result.stdout.trim();
         value = {status: message.slice(-8, -1), updated_at: new Date()};
@@ -35,7 +39,7 @@ MsmHelper.prototype.getUsers = function(id, callback, status) {
     if (status === 'running') {
       var value = myCache.get(id + '_users');
       if (value === undefined) {
-        exec('msm ' + id + ' connected')
+        msmExec(id + ' connected')
           .then(function(result) {
             var users = result.stdout.trim().split("\n");
             if (users[0] === "No players are connected.") {
@@ -71,19 +75,19 @@ MsmHelper.prototype.getAllInfo = function(id, callback) {
 };
 
 MsmHelper.prototype.start = function(id) {
-  exec('msm ' + id + ' start')
+  msmExec(id + ' start')
 };
 
 MsmHelper.prototype.stop = function(id, stop_now) {
-  exec('msm ' + id + ' stop' + (stop_now ? ' now' : ''))
+  msmExec(id + ' stop' + (stop_now ? ' now' : ''))
 };
 
 MsmHelper.prototype.startAll = function() {
-  exec('msm start')
+  msmExec('start')
 };
 
 MsmHelper.prototype.stopAll = function(stop_now) {
-  exec('msm stop' + (stop_now ? ' now' : ''))
+  msmExec('stop' + (stop_now ? ' now' : ''))
 };
 
 module.exports = MsmHelper;
