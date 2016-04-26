@@ -16,6 +16,8 @@ MsmHelper.prototype.getStatus = function(id, callback) {
         callback(value);
       })
       .fail(function(err) {
+        console.error('Failed to get status for id: ' + id)
+        console.error(err)
         callback({status: 'failed', updated_at: new Date()});
       });
   } else {
@@ -45,6 +47,8 @@ MsmHelper.prototype.getUsers = function(id, callback, status) {
             callback(value);
           })
           .fail(function(err) {
+            console.error('Failed to get user list for id: ' + id)
+            console.error(err)
             callback({userlist: ['ERROR'], updated_at: new Date()});
           });
       } else {
