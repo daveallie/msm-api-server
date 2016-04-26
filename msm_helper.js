@@ -86,34 +86,4 @@ MsmHelper.prototype.stopAll = function(stop_now) {
   exec('msm stop' + (stop_now ? ' now' : ''))
 };
 
-MsmHelper.prototype.stop = function(id) {
-  var msmThis = this;
-  msmThis.getStatus(id, function(result) {
-    var status = result;
-    msmThis.getUsers(id, function(result) {
-      callback({status: status, users: result});
-    }, status.status);
-  });
-};
-
-MsmHelper.prototype.startAll = function() {
-  var msmThis = this;
-  msmThis.getStatus(id, function(result) {
-    var status = result;
-    msmThis.getUsers(id, function(result) {
-      callback({status: status, users: result});
-    }, status.status);
-  });
-};
-
-MsmHelper.prototype.stopAll = function() {
-  var msmThis = this;
-  msmThis.getStatus(id, function(result) {
-    var status = result;
-    msmThis.getUsers(id, function(result) {
-      callback({status: status, users: result});
-    }, status.status);
-  });
-};
-
 module.exports = MsmHelper;
